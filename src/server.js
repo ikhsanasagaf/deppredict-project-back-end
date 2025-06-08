@@ -30,8 +30,6 @@ const init = async () => {
       title: 'DepPredict API Documentation',
       version: '1.0.0',
     },
-    host: 'deppredict-api.netlify.app',
-    schemes: ['https'],
     documentationPath: '/documentation',
   };
 
