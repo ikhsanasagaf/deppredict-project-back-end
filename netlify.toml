@@ -5,6 +5,9 @@
   directory = "src/lambda/"
   node_bundler = "esbuild"
 
+[functions."api"]
+  included_files = ["src/**"]
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
