@@ -1,39 +1,40 @@
-require('dotenv').config();
+require("dotenv").config();
+const path = require("path"); // <-- 1. Impor modul 'path' dari Node.js
 
-const Hapi = require('@hapi/hapi');
-const Jwt = require('@hapi/jwt');
-const Inert = require('@hapi/inert');
-const Vision = require('@hapi/vision');
-const HapiSwagger = require('hapi-swagger');
+const Hapi = require("@hapi/hapi");
+const Jwt = require("@hapi/jwt");
+const Inert = require("@hapi/inert");
+const Vision = require("@hapi/vision");
+const HapiSwagger = require("hapi-swagger");
 
-const ClientError = require('./exceptions/ClientError');
-const users = require('./api/users');
-const UsersService = require('./services/mongodb/UsersService');
-const UsersValidator = require('./validator/users');
-const TokenManager = require('./tokenize/TokenManager');
+const ClientError = require("./exceptions/ClientError");
+const users = require("./api/users");
+const UsersService = require("./services/mongodb/UsersService");
+const UsersValidator = require("./validator/users");
+const TokenManager = require("./tokenize/TokenManager");
 
 const init = async () => {
   const usersService = new UsersService();
 
   const server = Hapi.server({
     port: process.env.PORT || 9001,
-    host: process.env.HOST || 'localhost',
+    host: process.env.HOST || "localhost",
     routes: {
       cors: {
-        origin: ['*'],
+        origin: ["*"],
       },
     },
   });
 
+  // --- Konfigurasi Swagger dengan Path Template Eksplisit ---
   const swaggerOptions = {
     info: {
-      title: 'DepPredict API Documentation',
-      version: '1.0.0',
+      title: "DepPredict API Documentation",
+      version: "1.0.0",
     },
-    jsonPath: '/swagger.json',
-    swaggerUIPath: '/swaggerui/',
-    documentationPage: true,
-    documentationPath: '/documentation',
+    documentationPath: "/documentation",
+    // 2. Tambahkan baris ini untuk menunjuk ke lokasi template yang benar
+    templates: path.join(__dirname, "../node_modules/hapi-swagger/templates"),
   };
 
   await server.register([
@@ -54,12 +55,12 @@ const init = async () => {
     },
   ]);
 
-  server.ext('onPreResponse', (request, h) => {
+  server.ext("onPreResponse", (request, h) => {
     const { response } = request;
     if (response instanceof Error) {
       if (response instanceof ClientError) {
         const newResponse = h.response({
-          status: 'fail',
+          status: "fail",
           message: response.message,
         });
         newResponse.code(response.statusCode);
@@ -70,8 +71,8 @@ const init = async () => {
       }
       console.error(response);
       const newResponse = h.response({
-        status: 'error',
-        message: 'Terjadi kegagalan pada server kami.',
+        status: "error",
+        message: "Terjadi kegagalan pada server kami.",
       });
       newResponse.code(500);
       return newResponse;
