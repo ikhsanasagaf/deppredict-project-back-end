@@ -34,15 +34,9 @@ const init = async () => {
   };
 
   await server.register([
-    {
-      plugin: Jwt,
-    },
-    {
-      plugin: Inert,
-    },
-    {
-      plugin: Vision,
-    },
+    { plugin: Jwt },
+    { plugin: Inert },
+    { plugin: Vision },
     {
       plugin: HapiSwagger,
       options: swaggerOptions,
