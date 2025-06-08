@@ -1,6 +1,9 @@
 [build]
-  command = "npm run build:lambda"
-  functions = "functions"
+  command = "npm install"
+
+[functions]
+  directory = "src/lambda/"
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/api/*"
