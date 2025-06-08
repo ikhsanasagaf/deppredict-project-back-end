@@ -1,40 +1,41 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const Hapi = require("@hapi/hapi");
-const Jwt = require("@hapi/jwt");
-const Inert = require("@hapi/inert");
-const Vision = require("@hapi/vision");
-const HapiSwagger = require("hapi-swagger");
+const Hapi = require('@hapi/hapi');
+const Jwt = require('@hapi/jwt');
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
+const HapiSwagger = require('hapi-swagger');
 
-const ClientError = require("./exceptions/ClientError");
-const users = require("./api/users");
-const UsersService = require("./services/mongodb/UsersService");
-const UsersValidator = require("./validator/users");
-const TokenManager = require("./tokenize/TokenManager");
+const ClientError = require('./exceptions/ClientError');
+const users = require('./api/users');
+const UsersService = require('./services/mongodb/UsersService');
+const UsersValidator = require('./validator/users');
+const TokenManager = require('./tokenize/TokenManager');
 
 const init = async () => {
   const usersService = new UsersService();
 
   const server = Hapi.server({
     port: process.env.PORT || 9001,
-    host: process.env.HOST || "localhost",
+    host: process.env.HOST || 'localhost',
     routes: {
       cors: {
-        origin: ["*"],
+        origin: ['*'],
       },
     },
   });
 
-  // --- Konfigurasi Swagger Diperbarui dengan Opsi Proxy ---
+  // --- Konfigurasi Swagger Final untuk Serverless ---
   const swaggerOptions = {
     info: {
-      title: "DepPredict API Documentation",
-      version: "1.0.0",
+      title: 'DepPredict API Documentation',
+      version: '1.0.0',
     },
-    // Opsi ini membantu Swagger saat berada di belakang proxy Netlify
-    basePath: "/",
-    pathPrefixSize: 1,
-    documentationPath: "/documentation",
+    // Menentukan endpoint JSON secara manual
+    jsonPath: '/swagger.json',
+    swaggerUIPath: '/swaggerui/',
+    documentationPage: true,
+    documentationPath: '/documentation',
   };
 
   await server.register([
@@ -55,12 +56,12 @@ const init = async () => {
     },
   ]);
 
-  server.ext("onPreResponse", (request, h) => {
+  server.ext('onPreResponse', (request, h) => {
     const { response } = request;
     if (response instanceof Error) {
       if (response instanceof ClientError) {
         const newResponse = h.response({
-          status: "fail",
+          status: 'fail',
           message: response.message,
         });
         newResponse.code(response.statusCode);
@@ -71,8 +72,8 @@ const init = async () => {
       }
       console.error(response);
       const newResponse = h.response({
-        status: "error",
-        message: "Terjadi kegagalan pada server kami.",
+        status: 'error',
+        message: 'Terjadi kegagalan pada server kami.',
       });
       newResponse.code(500);
       return newResponse;
