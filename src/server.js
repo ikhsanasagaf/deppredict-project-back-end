@@ -21,8 +21,8 @@ const init = async () => {
       cors: {
         origin: ['*'],
       },
-      stripTrailingSlash: true,
     },
+    stripTrailingSlash: true, 
   });
 
   const swaggerOptions = {
