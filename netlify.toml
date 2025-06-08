@@ -10,11 +10,6 @@
   included_files = ["src/**"]
 
 [[redirects]]
-  from = "/api/*"
+  from = "/*"
   to = "/.netlify/functions/api/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/documentation"
-  to = "/.netlify/functions/api/documentation"
   status = 200
