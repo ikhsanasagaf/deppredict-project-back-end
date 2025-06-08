@@ -22,7 +22,6 @@ const init = async () => {
         origin: ['*'],
       },
     },
-    stripTrailingSlash: true, 
   });
 
   const swaggerOptions = {
