@@ -2,6 +2,9 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
+const Inert = require('@hapi/inert');
+const HapiSwagger = require('hapi-swagger');
+
 const ClientError = require('./exceptions/ClientError');
 const users = require('./api/users');
 const UsersService = require('./services/mongodb/UsersService');
@@ -21,9 +24,23 @@ const init = async () => {
     },
   });
 
+  const swaggerOptions = {
+    info: {
+      title: 'DepPredict API Documentation',
+      version: '1.0.0',
+    },
+  };
+
   await server.register([
     {
       plugin: Jwt,
+    },
+    {
+      plugin: Inert,
+    },
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
     },
     {
       plugin: users,
