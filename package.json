@@ -7,9 +7,8 @@
     "start:dev": "nodemon src/server.js",
     "lint": "eslint ./"
   },
-  "author": "",
+  "author": "Ikhsan Asagaf",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@hapi/hapi": "^21.4.0",
     "@hapi/joi": "^17.1.1",
@@ -17,7 +16,8 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "mongodb": "^6.17.0",
-    "nanoid": "^5.1.5"
+    "nanoid": "^5.1.5",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "eslint": "^9.28.0",
