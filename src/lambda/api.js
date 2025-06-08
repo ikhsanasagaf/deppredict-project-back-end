@@ -1,13 +1,13 @@
 const serverless = require('serverless-http');
 const { init } = require('../server');
 
-let cachedServer;
-
 module.exports.handler = async (event, context) => {
-  if (!cachedServer) {
-    const server = await init();
-    cachedServer = serverless(server.listener);
-  }
+  console.log("--- Netlify Function Event Received ---");
+  console.log(JSON.stringify(event, null, 2));
+  console.log("--- End of Event ---");
 
-  return cachedServer(event, context);
+  const server = await init();
+  const serverlessHandler = serverless(server.listener);
+  
+  return serverlessHandler(event, context);
 };
