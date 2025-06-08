@@ -8,7 +8,7 @@ class UsersService {
   constructor() {
     const client = new MongoClient(process.env.MONGO_URI);
     client.connect();
-    this._collection = client.db().collection("users");
+    this._collection = client.db("deppredict-db").collection("users");
   }
 
   async addUser({ name, email, password }) {
