@@ -17,12 +17,12 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "mongodb": "^6.17.0",
-    "nanoid": "^5.1.5",
-    "serverless-http": "^3.2.0"
+    "nanoid": "^5.1.5"
   },
   "devDependencies": {
     "eslint": "^9.28.0",
     "netlify-lambda": "^2.0.16",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "serverless-http": "^3.2.0"
   }
 }
