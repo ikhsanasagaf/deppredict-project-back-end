@@ -21,6 +21,7 @@ const init = async () => {
       cors: {
         origin: ['*'],
       },
+      stripTrailingSlash: true,
     },
   });
 
@@ -29,6 +30,7 @@ const init = async () => {
       title: 'DepPredict API Documentation',
       version: '1.0.0',
     },
+    documentationPath: '/documentation',
   };
 
   await server.register([
@@ -48,6 +50,9 @@ const init = async () => {
         service: usersService,
         validator: UsersValidator,
         tokenManager: TokenManager,
+      },
+      routes: {
+        prefix: '/api',
       },
     },
   ]);

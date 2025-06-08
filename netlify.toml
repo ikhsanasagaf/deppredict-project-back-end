@@ -1,5 +1,6 @@
 [build]
   command = "npm install"
+  functions = "functions"
 
 [functions]
   directory = "src/lambda/"
@@ -11,4 +12,9 @@
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/documentation"
+  to = "/.netlify/functions/api/documentation"
   status = 200
