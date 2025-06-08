@@ -25,13 +25,11 @@ const init = async () => {
     },
   });
 
-  // --- Konfigurasi Swagger Final untuk Serverless ---
   const swaggerOptions = {
     info: {
       title: 'DepPredict API Documentation',
       version: '1.0.0',
     },
-    // Menentukan endpoint JSON secara manual
     jsonPath: '/swagger.json',
     swaggerUIPath: '/swaggerui/',
     documentationPage: true,
