@@ -2,11 +2,7 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
-
-// Custom error handling
 const ClientError = require('./exceptions/ClientError');
-
-// API Plugin
 const users = require('./api/users');
 const UsersService = require('./services/mongodb/UsersService');
 const UsersValidator = require('./validator/users');
@@ -29,9 +25,6 @@ const init = async () => {
     {
       plugin: Jwt,
     },
-  ]);
-
-  await server.register([
     {
       plugin: users,
       options: {
@@ -44,7 +37,6 @@ const init = async () => {
 
   server.ext('onPreResponse', (request, h) => {
     const { response } = request;
-
     if (response instanceof Error) {
       if (response instanceof ClientError) {
         const newResponse = h.response({
@@ -54,12 +46,9 @@ const init = async () => {
         newResponse.code(response.statusCode);
         return newResponse;
       }
-
       if (!response.isServer) {
         return h.continue;
       }
-
-      // Server ERROR!
       console.error(response);
       const newResponse = h.response({
         status: 'error',
@@ -68,12 +57,11 @@ const init = async () => {
       newResponse.code(500);
       return newResponse;
     }
-
     return h.continue;
   });
 
-  await server.start();
-  console.log(`Server berjalan pada ${server.info.uri}`);
+  await server.initialize();
+  return server;
 };
 
-init();
+module.exports = { init };
