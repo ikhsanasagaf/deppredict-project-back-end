@@ -1,11 +1,7 @@
 require('dotenv').config();
-const path = require('path');
 
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
-const Inert = require('@hapi/inert');
-const Vision = require('@hapi/vision');
-const HapiSwagger = require('hapi-swagger');
 
 const ClientError = require('./exceptions/ClientError');
 const users = require('./api/users');
@@ -26,24 +22,9 @@ const init = async () => {
     },
   });
 
-  // --- Konfigurasi Swagger dengan Path Template Diperbaiki ---
-  const swaggerOptions = {
-    info: {
-      title: 'DepPredict API Documentation',
-      version: '1.0.0',
-    },
-    documentationPath: '/documentation',
-    // Path diperbaiki untuk naik dua level dari `src` ke `node_modules`
-    templates: path.join(__dirname, '../../node_modules/hapi-swagger/templates'),
-  };
-
   await server.register([
-    { plugin: Jwt },
-    { plugin: Inert },
-    { plugin: Vision },
     {
-      plugin: HapiSwagger,
-      options: swaggerOptions,
+      plugin: Jwt,
     },
     {
       plugin: users,
