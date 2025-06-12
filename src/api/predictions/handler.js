@@ -13,8 +13,8 @@ class PredictionsHandler {
 
     const options = {
       mode: 'json',
-      pythonPath: 'python',
-      scriptPath: path.join(__dirname, '../../../ml_model'),
+      pythonPath: 'python3',
+      scriptPath: path.join(__dirname, '../../../ml_model'), 
       args: [JSON.stringify({ features })],
     };
 
