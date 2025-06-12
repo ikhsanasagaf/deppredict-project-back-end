@@ -1,7 +1,5 @@
 # DepPredict - API Back-end
 
-![Hapi.js + MongoDB](https://i.imgur.com/8Q8hYxj.png)
-
 Ini adalah repositori untuk layanan **Back-end** dari proyek DepPredict. API ini dibangun menggunakan framework **Hapi.js** dan bertanggung jawab untuk menangani otentikasi pengguna, termasuk registrasi dan login.
 
 Data pengguna disimpan dengan aman di database **MongoDB Atlas**, dan proses otentikasi menggunakan **JSON Web Tokens (JWT)** untuk menjaga keamanan sesi pengguna.
