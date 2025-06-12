@@ -147,4 +147,4 @@ Proyek DepPredict terdiri dari tiga bagian utama:
     -   [github.com/ikhsanasagaf/deppredict-project-front-end](https://github.com/ikhsanasagaf/deppredict-project-front-end)
 2.  **Back-end (Repositori Ini)**: API yang menangani otentikasi.
 3.  **Machine Learning**: Notebook dan model untuk melatih dan mengekspor model prediksi.
-    -   [github.com/ikhsanasagaf/deppredict-machine-learning](https://github.com/ikhsanasagaf/deppredict-machine-learning)
+    -  [https://github.com/SofyanSaif/DepPredict-Capstone-Project.git](https://github.com/SofyanSaif/DepPredict-Capstone-Project.git)
