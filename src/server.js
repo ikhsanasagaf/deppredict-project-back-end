@@ -5,14 +5,10 @@ const Jwt = require('@hapi/jwt');
 
 const ClientError = require('./exceptions/ClientError');
 
-
 const users = require('./api/users');
 const UsersService = require('./services/mongodb/UsersService');
 const UsersValidator = require('./validator/users');
 const TokenManager = require('./tokenize/TokenManager');
-
-const predictions = require('./api/predictions');
-const PredictionsValidator = require('./validator/predictions');
 
 const init = async () => {
   const usersService = new UsersService();
@@ -32,14 +28,14 @@ const init = async () => {
       plugin: Jwt,
     },
   ]);
-  
+
   server.auth.strategy('jwt_auth_strategy', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
       aud: false,
       iss: false,
       sub: false,
-      maxAgeSec: 86400, 
+      maxAgeSec: 86400,
     },
     validate: (artifacts) => ({
       isValid: true,
@@ -58,14 +54,9 @@ const init = async () => {
         tokenManager: TokenManager,
       },
     },
-    {
-      plugin: predictions,
-      options: {
-        validator: PredictionsValidator,
-      },
-    },
   ]);
 
+  // ... (sisa kode server.ext tidak berubah)
   server.ext('onPreResponse', (request, h) => {
     const { response } = request;
     if (response instanceof Error) {
