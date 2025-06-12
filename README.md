@@ -104,7 +104,7 @@ Untuk menjalankan API ini di lingkungan lokal Anda, ikuti langkah-langkah beriku
 
 2.  **Clone Repositori**
     ```bash
-    git clone [https://github.com/ikhsanasagaf/deppredict-project-back-end.git](https://github.com/ikhsanasagaf/deppredict-project-back-end.git)
+    git clone https://github.com/ikhsanasagaf/deppredict-project-back-end.git
     ```
 
 3.  **Masuk ke Direktori Proyek**
