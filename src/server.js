@@ -5,14 +5,10 @@ const Jwt = require('@hapi/jwt');
 
 const ClientError = require('./exceptions/ClientError');
 
-// Impor plugin dan service
 const users = require('./api/users');
 const UsersService = require('./services/mongodb/UsersService');
 const UsersValidator = require('./validator/users');
 const TokenManager = require('./tokenize/TokenManager');
-
-// Impor plugin baru untuk prediksi
-const predictions = require('./api/predictions');
 
 const init = async () => {
   const usersService = new UsersService();
@@ -33,14 +29,13 @@ const init = async () => {
     },
   ]);
 
-  // Definisikan strategi autentikasi JWT agar rute /predict bisa diproteksi
   server.auth.strategy('jwt_auth_strategy', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
       aud: false,
       iss: false,
       sub: false,
-      maxAgeSec: 86400, // Token berlaku 24 jam
+      maxAgeSec: 86400,
     },
     validate: (artifacts) => ({
       isValid: true,
@@ -50,7 +45,6 @@ const init = async () => {
     }),
   });
 
-  // Daftarkan semua plugin Anda
   await server.register([
     {
       plugin: users,
@@ -60,12 +54,9 @@ const init = async () => {
         tokenManager: TokenManager,
       },
     },
-    {
-      plugin: predictions,
-      // Tidak perlu options untuk saat ini karena handler tidak butuh service
-    },
   ]);
 
+  // ... (sisa kode server.ext tidak berubah)
   server.ext('onPreResponse', (request, h) => {
     const { response } = request;
     if (response instanceof Error) {
